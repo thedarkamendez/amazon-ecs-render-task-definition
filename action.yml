@@ -52,6 +52,9 @@ inputs:
   container-override-name:
     description: 'The new name of the container'
     required: false
+  family-override-name:
+    description: 'The new name of the family'
+    required: false
 outputs:
   task-definition:
     description: 'The path to the rendered task definition file'
