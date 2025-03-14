@@ -51,10 +51,10 @@ async function run() {
     const logConfigurationOptions = core.getInput("log-configuration-options", { required: false });
     const dockerLabels = core.getInput('docker-labels', { required: false });
     const command = core.getInput('command', { required: false });
-    const containerCpu = core.getInput('container-cpu', { required: false });
-    const containerMemory = core.getInput('container-memory', { required: false });
+    const cpu = core.getInput('cpu', { required: false });
+    const memory = core.getInput('memory', { required: false });
     const containerOverrideName = core.getInput('container-override-name', { required: false });
-    
+
     //New inputs to fetch task definition 
     const taskDefinitionArn = core.getInput('task-definition-arn', { required: false }) || undefined;
     const taskDefinitionFamily = core.getInput('task-definition-family', { required: false }) || undefined;
@@ -110,6 +110,15 @@ async function run() {
     if (!Array.isArray(taskDefContents.containerDefinitions)) {
       throw new Error('Invalid task definition format: containerDefinitions section is not present or is not an array');
     }
+
+    // set the cpu and memory for the service.
+    if (cpu) {
+      taskDefContents.cpu = cpu;
+    }
+    if (memory) {
+      taskDefContents.memory = memory;
+    }
+
     const containerDef = taskDefContents.containerDefinitions.find(function (element) {
       return element.name == containerName;
     });

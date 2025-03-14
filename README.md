@@ -29,8 +29,8 @@ To insert the image URI `amazon/amazon-ecs-sample:latest` as the image for the `
         task-definition-family: task-definition-family-name 
         task-definition-revision: task-definition-revision
         container-name: celery_worker
-        container-cpu: "2048"
-        container-memory: "4096"
+        cpu: "2048"
+        memory: "4096"
         container-override-name: "celery_worker_high_priority"
         image: amazon/amazon-ecs-sample:latest
         environment-variables: "LOG_LEVEL=info"

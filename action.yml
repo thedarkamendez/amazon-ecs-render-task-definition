@@ -43,11 +43,11 @@ inputs:
   secrets:
     description: 'Secrets to add to the container. Each secret is of the form KEY=valueFrom, where valueFrom is a secret arn. You can specify multiple secrets with multi-line YAML strings.'
     required: false
-  container-cpu:
-    description: 'The number of CPU units reserved for the container'
+  cpu:
+    description: 'The number of CPU units reserved for the service'
     required: false
-  container-memory:
-    description: 'The amount of memory (in MiB) used by the container'
+  memory:
+    description: 'The amount of memory (in MiB) used by the service'
     required: false
   container-override-name:
     description: 'The new name of the container'
