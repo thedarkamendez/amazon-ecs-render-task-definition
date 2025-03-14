@@ -55,6 +55,7 @@ async function run() {
     const memory = core.getInput('memory', { required: false });
     const containerOverrideName = core.getInput('container-override-name', { required: false });
     const familyOverrideName = core.getInput('family-override-name', { required: false });
+    const environment = core.getInput('environment', { required: false }) || 'unknown';
 
     //New inputs to fetch task definition 
     const taskDefinitionArn = core.getInput('task-definition-arn', { required: false }) || undefined;
@@ -211,10 +212,11 @@ async function run() {
                 where valueFrom is an arn from parameter store or secrets manager. See AWS documentation for more information: 
                 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data.html.`);
           }
-          // Build object
+          
+          // Build object and replace {env} with actual environment value
           const secret = {
             name: trimmedLine.substring(0, separatorIdx),
-            valueFrom: trimmedLine.substring(separatorIdx + 1),
+            valueFrom: trimmedLine.substring(separatorIdx + 1).replace(/{env}/g, environment),
           };
 
           // Search container definition environment for one matching name
