@@ -45,6 +45,9 @@ async function run() {
     const logConfigurationOptions = core.getInput("log-configuration-options", { required: false });
     const dockerLabels = core.getInput('docker-labels', { required: false });
     const command = core.getInput('command', { required: false });
+    const containerCpu = core.getInput('container-cpu', { required: false });
+    const containerMemory = core.getInput('container-memory', { required: false });
+    const containerOverrideName = core.getInput('container-override-name', { required: false });
 
     //New inputs to fetch task definition 
     const taskDefinitionArn = core.getInput('task-definition-arn', { required: false }) || undefined;
@@ -111,6 +114,16 @@ async function run() {
 
     if (command) {
       containerDef.command = command.split(' ')
+    }
+
+    if (containerCpu) {
+      containerDef.cpu = containerCpu;
+    }
+    if (containerMemory) {
+      containerDef.memory = containerMemory;
+    }
+    if (containerOverrideName) {
+      containerDef.name = containerOverrideName;
     }
 
     if (envFiles) {
