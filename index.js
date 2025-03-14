@@ -48,6 +48,7 @@ async function run() {
     const cpu = core.getInput('cpu', { required: false });
     const memory = core.getInput('memory', { required: false });
     const containerOverrideName = core.getInput('container-override-name', { required: false });
+    const familyOverrideName = core.getInput('family-override-name', { required: false });
 
     //New inputs to fetch task definition 
     const taskDefinitionArn = core.getInput('task-definition-arn', { required: false }) || undefined;
@@ -111,6 +112,10 @@ async function run() {
     }
     if (memory) {
       taskDefContents.memory = memory;
+    }
+
+    if (familyOverrideName) {
+      taskDefContents.family = familyOverrideName;
     }
 
     const containerDef = taskDefContents.containerDefinitions.find(function (element) {
