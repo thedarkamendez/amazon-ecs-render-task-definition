@@ -131,16 +131,6 @@ async function run() {
       containerDef.command = command.split(' ')
     }
 
-    if (containerCpu) {
-      containerDef.cpu = containerCpu;
-    }
-    if (containerMemory) {
-      containerDef.memory = containerMemory;
-    }
-    if (containerOverrideName) {
-      containerDef.name = containerOverrideName;
-    }
-
     if (envFiles) {
       containerDef.environmentFiles = [];
       envFiles.split('\n').forEach(function (line) {
