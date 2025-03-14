@@ -55,6 +55,9 @@ inputs:
   family-override-name:
     description: 'The new name of the family'
     required: false
+  environment:
+    description: 'Will replace {env} in secrets with this value'
+    required: false
 outputs:
   task-definition:
     description: 'The path to the rendered task definition file'
