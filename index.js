@@ -121,6 +121,10 @@ async function run() {
     }
     containerDef.image = imageURI;
 
+    if (containerOverrideName) {
+      containerDef.name = containerOverrideName;
+    }
+
     if (command) {
       containerDef.command = command.split(' ')
     }
