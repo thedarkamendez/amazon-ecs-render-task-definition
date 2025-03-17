@@ -55,6 +55,7 @@ async function run() {
     const memory = core.getInput('memory', { required: false });
     const containerOverrideName = core.getInput('container-override-name', { required: false });
     const familyOverrideName = core.getInput('family-override-name', { required: false });
+    const secretEnvironment = core.getInput('secret-environment', { required: false }) || 'unknown';
 
     //New inputs to fetch task definition 
     const taskDefinitionArn = core.getInput('task-definition-arn', { required: false }) || undefined;
@@ -228,6 +229,16 @@ async function run() {
           }
         })
       }
+    }
+
+    if (secretEnvironment) {
+      // Replace {env} with actual environment value
+      containerDef.secrets = containerDef.secrets.map(secret => {
+        if (secret.valueFrom && secret.valueFrom.includes('{env}')) {
+          secret.valueFrom = secret.valueFrom.replace('{env}', secretEnvironment);
+        }
+        return secret;
+      });
     }
 
     if (logConfigurationLogDriver) {
